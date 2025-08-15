@@ -36,9 +36,9 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2">
-            <div className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center">
+            {/* <div className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold">S</span>
-            </div>
+            </div> */}
             <span className="text-2xl font-bold text-foreground">StayScape</span>
           </Link>
         </div>

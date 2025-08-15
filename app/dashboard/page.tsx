@@ -128,9 +128,9 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
+              {/* <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">S</span>
-              </div>
+              </div> */}
               <span className="text-xl font-bold text-foreground">StayScape</span>
               <Badge variant="secondary" className="ml-2">
                 Host Dashboard
