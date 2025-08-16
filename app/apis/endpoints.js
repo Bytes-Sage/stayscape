@@ -2,22 +2,22 @@ export const BASE_URL = "https://stayscape.theparcel.com.ng/api";
 
 const TokenStorage = {
   setToken(token) {
-    localStorage.setItem('accessToken', token);
+    localStorage.setItem("accessToken", token);
   },
-  
+
   getToken() {
-    return localStorage.getItem('accessToken');
+    return localStorage.getItem("accessToken");
   },
-  
+
   removeToken() {
-    localStorage.removeItem('accessToken');
-  }
+    localStorage.removeItem("accessToken");
+  },
 };
 
 async function apiFetch(url, options = {}) {
   try {
     const token = TokenStorage.getToken();
-    
+
     const defaultOptions = {
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ async function apiFetch(url, options = {}) {
       if (response.status === 401) {
         TokenStorage.removeToken();
       }
-      
+
       const errorData = await response.json().catch(() => ({}));
       throw new Error(
         errorData.message ||
@@ -60,20 +60,24 @@ export async function loginUser(data) {
     method: "POST",
     body: JSON.stringify(data),
   });
-  
+
   // Store the token after successful login
-  if (response.token || response.access_token) {
-    TokenStorage.setToken(response.token || response.access_token);
+  if (response.data.accessToken || response.accessToken) {
+    TokenStorage.setToken(response.data.accessToken || response.accessToken);
   }
-  
+
   return response;
 }
 
 export async function createRoom(data) {
-  return apiFetch(`${BASE_URL}/rooms`, { withCredentials: true }, {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+  return apiFetch(
+    `${BASE_URL}/rooms`,
+    { withCredentials: true },
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
 }
 
 export async function updateRoom(roomId, data) {
@@ -176,7 +180,6 @@ export function isAuthenticated() {
 //   });
 // }
 
-
 // const BASE_URL = "https://stayscape.theparcel.com.ng/api";
 
 // async function apiFetch(url, options) {
@@ -198,7 +201,6 @@ export function isAuthenticated() {
 //   }
 // }
 
-
 // export async function registerUser(data) {
 //   return apiFetch(`${BASE_URL}/account/register`, {
 //     method: "POST",
@@ -208,7 +210,6 @@ export function isAuthenticated() {
 //     body: JSON.stringify(data),
 //   });
 // }
-
 
 // export async function loginUser(data) {
 //   return apiFetch(`${BASE_URL}/account/login`, {
@@ -220,7 +221,6 @@ export function isAuthenticated() {
 //   });
 // }
 
-
 // export async function createRoom(data) {
 //   return apiFetch(`${BASE_URL}/rooms`, {
 //     method: "POST",
@@ -231,7 +231,6 @@ export function isAuthenticated() {
 //     body: JSON.stringify(data),
 //   });
 // }
-
 
 // export async function updateRoom(roomId, data, token) {
 //   return apiFetch(`${BASE_URL}/rooms/${roomId}`, {
