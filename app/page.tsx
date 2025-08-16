@@ -21,6 +21,7 @@ import axios from "axios";
 import { BASE_URL } from "./apis/endpoints";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 // Interface for Room data
 interface Room {
@@ -191,12 +192,13 @@ const amenityIcons = {
 export default function HomePage() {
   const [originalRooms, setOriginalRooms] = useState<Room[]>([]); // To store all fetched rooms
   const [availableRooms, setAvailableRooms] = useState<Room[]>([]); // Filtered rooms
-  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<Room | any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchLocation, setSearchLocation] = useState<string>(""); // State for location search input
   const { toast } = useToast();
+  const router = useRouter()
 
   // New state for booking form data
   const [bookingDetails, setBookingDetails] = useState({
@@ -344,7 +346,8 @@ export default function HomePage() {
       className: "bg-green-500 text-white", // Custom styling for success toast
     });
 
-    alert(`Your booking for "${selectedRoom.title}" has been saved.`);
+    alert(`Your booking for "${selectedRoom.title}" has been saved, redirecting to payment screen`);
+    router.push('/payment')
 
     // Close the modal and reset state
     closeModal();
@@ -447,7 +450,7 @@ export default function HomePage() {
                     <Input
                       type="date"
                       className="border-0 focus-visible:ring-0 bg-transparent p-0 text-sm"
-                      // Dates are negligible for now as per request
+                    // Dates are negligible for now as per request
                     />
                   </div>
                   <div className="bg-gray-50 rounded-lg p-2">
@@ -457,7 +460,7 @@ export default function HomePage() {
                     <Input
                       type="date"
                       className="border-0 focus-visible:ring-0 bg-transparent p-0 text-sm"
-                      // Dates are negligible for now as per request
+                    // Dates are negligible for now as per request
                     />
                   </div>
                 </div>
@@ -482,14 +485,14 @@ export default function HomePage() {
                   <Input
                     type="date"
                     className="border-0 focus-visible:ring-0 text-lg"
-                    // Dates are negligible for now as per request
+                  // Dates are negligible for now as per request
                   />
                 </div>
                 <div className="flex-1 flex items-center px-4 border-l border-gray-200">
                   <Input
                     type="date"
                     className="border-0 focus-visible:ring-0 text-lg"
-                    // Dates are negligible for now as per request
+                  // Dates are negligible for now as per request
                   />
                 </div>
                 <Button type="submit" size="lg" className="rounded-full px-8">
@@ -654,7 +657,7 @@ export default function HomePage() {
                 {/* Additional images if available */}
                 {selectedRoom.images && selectedRoom.images.length > 1 && (
                   <div className="grid grid-cols-4 gap-2 mt-2">
-                    {selectedRoom.images.slice(1, 5).map((img, index) => (
+                    {selectedRoom.images.slice(1, 5).map((img: any, index: any) => (
                       <img
                         key={index}
                         src={img}
@@ -726,7 +729,7 @@ export default function HomePage() {
                   <div>
                     <h3 className="text-lg font-semibold mb-3">Amenities</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {selectedRoom.amenities.map((amenity) => {
+                      {selectedRoom.amenities.map((amenity: any) => {
                         const IconComponent =
                           amenityIcons[amenity as keyof typeof amenityIcons] ||
                           Coffee;
@@ -778,7 +781,7 @@ export default function HomePage() {
                           House Rules
                         </h3>
                         <ul className="space-y-1 text-sm text-gray-700">
-                          {selectedRoom.policies.map((policy, index) => (
+                          {selectedRoom.policies.map((policy: any, index: any) => (
                             <li key={index}>• {policy}</li>
                           ))}
                         </ul>
