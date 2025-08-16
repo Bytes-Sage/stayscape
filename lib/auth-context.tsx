@@ -1,6 +1,7 @@
 "use client";
 
 import { isAuthenticated, loginUser, registerUser } from "@/app/apis/endpoints";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   useContext,
@@ -37,6 +38,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter()
 
   // Check for an existing token on mount
   useEffect(() => {
@@ -115,6 +117,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     // Call the logout function from your endpoints.ts file
+    router.push("/");
     setUser(null);
   };
 

@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password); // Call the login function from AuthContext
-      router.push("/dashboard"); // Redirect to the dashboard on successful login
+      router.push("/"); // Redirect to the dashboard on successful login
     } catch (err: any) {
       console.error("Login Error:", err);
       // Set the error message based on the API response or a generic message
