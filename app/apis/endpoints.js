@@ -1,4 +1,4 @@
-const BASE_URL = "https://stayscape.theparcel.com.ng/api";
+export const BASE_URL = "https://stayscape.theparcel.com.ng/api";
 
 const TokenStorage = {
   setToken(token) {
@@ -70,7 +70,7 @@ export async function loginUser(data) {
 }
 
 export async function createRoom(data) {
-  return apiFetch(`${BASE_URL}/rooms`, {
+  return apiFetch(`${BASE_URL}/rooms`, { withCredentials: true }, {
     method: "POST",
     body: JSON.stringify(data),
   });
@@ -79,6 +79,12 @@ export async function createRoom(data) {
 export async function updateRoom(roomId, data) {
   return apiFetch(`${BASE_URL}/rooms/${roomId}`, {
     method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+export async function deleteRoom(roomId, data) {
+  return apiFetch(`${BASE_URL}/rooms/${roomId}`, {
+    method: "DELETE",
     body: JSON.stringify(data),
   });
 }
